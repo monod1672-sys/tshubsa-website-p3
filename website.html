@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>TS HUB SA | Local streetwear</title>
+</head>
+
+<body>
+    <div class="rectangle title-bar">
+        <img class="brand-logo" src="LOGO.png" alt="TS HUB SA logo">
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="#home">HOME</a>
+            <a href="#brands">BRANDS</a>
+            <a href="#categories">CATEGORIES</a>
+            <a href="#products">SHOP</a>
+        </nav>
+        <nav class="nav-actions" aria-label="Quick links">
+            <form class="site-search" action="search.html" method="get">
+                <label class="sr-only" for="product-search">Search products</label>
+                <input id="product-search" name="product" type="search" placeholder="Search products"
+                    autocomplete="off">
+                <button type="submit" aria-label="Search products" title="Search products"><svg viewBox="0 0 24 24"
+                        aria-hidden="true">
+                        <circle cx="11" cy="11" r="6"></circle>
+                        <path d="m16 16 4 4"></path>
+                    </svg></button>
+            </form>
+            <a id="cart-toggle" href="#cart-panel" aria-label="Open shopping cart" title="Open shopping cart"><svg
+                    viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 1.9-1.4L21 8H6"></path>
+                    <circle cx="10" cy="20" r="1"></circle>
+                    <circle cx="18" cy="20" r="1"></circle>
+                </svg><span class="cart-count" id="cart-count" hidden>0</span></a>
+            <a href="#about" aria-label="About" title="About"><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M12 10v6M12 7h.01"></path>
+                </svg></a>
+        </nav>
+    </div>
+
+    <main class="content">
+        <h1 id="home"><img class="hero-banner" src="BUN2.jpg" alt="Local streetwear collection"><a
+                class="shop-now-button" href="#products">SHOP NOW</a></h1>
+
+        <section class="rectangle2" id="categories" aria-labelledby="shop-title">
+            <div class="shop-heading">
+                <div>
+                    <p class="eyebrow">QAVA / GOTH / DAWG 25</p>
+                    <h2 id="shop-title">Shop by category</h2>
+                </div>
+            </div>
+            <div class="home-new-arrivals">
+                <p class="eyebrow">NEW ARRIVALS</p>
+                <h3>Latest pieces</h3>
+            </div>
+            <nav class="nav-category" aria-label="Categories">
+                <a class="category" href="hoodies.html"><span class="category-box"><img class="category-image"
+                            src="gh.jpg" alt="Hoodies"></span><span>Hoodies</span></a>
+                <a class="category" href="tshirts.html"><span class="category-box"><img class="category-image"
+                            src="jeso.jpg" alt="T-shirts"></span><span>T-shirts</span></a>
+                <a class="category" href="jackets.html"><span class="category-box"><img class="category-image"
+                            src="ja.jpg" alt="Jackets"></span><span>Jackets</span></a>
+                <a class="category" href="pants.html"><span class="category-box"><img class="category-image"
+                            src="yt.jpg" alt="Pants"></span><span>Pants</span></a>
+            </nav>
+
+            <div class="brand-shop" id="brands">
+                <div class="brand-shop-heading">
+                    <p class="eyebrow">CHOOSE YOUR LABEL</p>
+                    <h3>Shop by brand</h3>
+                </div>
+                <nav class="brand-options" aria-label="Shop by brand">
+                    <a class="brand-option" href="qava.html"><span
+                            class="brand-option-mark">Q</span><span>QAVA</span></a>
+                    <a class="brand-option" href="goth.html"><span
+                            class="brand-option-mark">G</span><span>GOTH</span></a>
+                    <a class="brand-option" href="dawg25.html"><span class="brand-option-mark">25</span><span>DAWG
+                            25</span></a>
+                </nav>
+            </div>
+
+            <div class="category-products" id="products">
+                <section class="category-group" id="hoodies">
+                    <h3>Hoodies</h3>
+                    <div class="product-grid">
+                        <article class="product-card" id="goth-products">
+                            <div class="product-image-wrap"><img class="product-image" src="ad.jpg"
+                                    alt="GOTH After dark hoodie"><span class="product-brand">GOTH</span></div>
+                            <div class="product-info">
+                                <h4>After dark hoodie</h4>
+                                <p class="product-details">Colour: Black</p>
+                                <p class="product-price">R650.00</p>
+                                <div class="product-actions"><label>Size <select class="size-select"
+                                            aria-label="After dark hoodie size">
+                                            <option>Small</option>
+                                            <option selected>Medium</option>
+                                            <option>Large</option>
+                                        </select></label><label>Quantity <input class="quantity-input" type="number"
+                                            min="1" value="1" aria-label="Quantity"></label><button class="add-button"
+                                        type="button">Add to cart</button></div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                <section class="category-group" id="t-shirts">
+                    <h3>T-shirts</h3>
+                    <div class="product-grid">
+                        <article class="product-card" id="qava-products">
+                            <div class="product-image-wrap"><img class="product-image" src="mono qava.jpg"
+                                    alt="QAVA Core logo tee"><span class="product-brand">QAVA</span></div>
+                            <div class="product-info">
+                                <h4>Core logo tee</h4>
+                                <p class="product-details">Colour: Black / white</p>
+                                <p class="product-price">R500.00</p>
+                                <div class="product-actions"><label>Size <select class="size-select"
+                                            aria-label="Core logo tee size">
+                                            <option>Small</option>
+                                            <option selected>Medium</option>
+                                            <option>Large</option>
+                                        </select></label><label>Quantity <input class="quantity-input" type="number"
+                                            min="1" value="1" aria-label="Quantity"></label><button class="add-button"
+                                        type="button">Add to cart</button></div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                <section class="category-group" id="jackets">
+                    <h3>Jackets</h3>
+                    <div class="product-grid">
+                        <article class="product-card">
+                            <div class="product-image-wrap"><img class="product-image" src="br.jpg"
+                                    alt="QAVA Signature varsity jacket"><span class="product-brand">QAVA</span></div>
+                            <div class="product-info">
+                                <h4>Black cargo pants</h4>
+                                <p class="product-details">Colour: Black / white</p>
+                                <p class="product-price">R450.00</p>
+                                <div class="product-actions"><label>Size <select class="size-select"
+                                            aria-label="Black cargo pants size">
+                                            <option>Small</option>
+                                            <option selected>Medium</option>
+                                            <option>Large</option>
+                                        </select></label><label>Quantity <input class="quantity-input" type="number"
+                                            min="1" value="1" aria-label="Quantity"></label><button class="add-button"
+                                        type="button">Add to cart</button></div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+                <section class="category-group" id="pants">
+                    <h3>Pants</h3>
+                    <div class="product-grid">
+                        <article class="product-card" id="dawg-products">
+                            <div class="product-image-wrap"><img class="product-image" src="Dawg.jpg"
+                                    alt="DAWG 25 Street utility pants"><span class="product-brand">DAWG 25</span></div>
+                            <div class="product-info">
+                                <h4>Street dog</h4>
+                                <p class="product-details">Colour: Black / white</p>
+                                <p class="product-price">R450.00</p>
+                                <div class="product-actions"><label>Size <select class="size-select"
+                                            aria-label="Street dog size">
+                                            <option>Small</option>
+                                            <option selected>Medium</option>
+                                            <option>Large</option>
+                                        </select></label><label>Quantity <input class="quantity-input" type="number"
+                                            min="1" value="1" aria-label="Quantity"></label><button class="add-button"
+                                        type="button">Add to cart</button></div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <button class="cart-backdrop" id="cart-backdrop" type="button" aria-label="Close shopping cart" hidden></button>
+    <aside class="cart-panel" id="cart-panel" aria-labelledby="cart-title" aria-hidden="true" inert>
+        <div class="cart-header">
+            <h2 id="cart-title">Your cart <span id="cart-item-count">(0)</span></h2>
+            <button class="close-cart" id="close-cart" type="button" aria-label="Close shopping cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items" aria-live="polite"></div>
+        <div class="cart-footer">
+            <p><span>Subtotal</span><span id="cart-subtotal">R0.00</span></p>
+            <p><span>Shipping</span><span id="cart-shipping">R0.00</span></p>
+            <strong><span>Total</span><span id="cart-total">R0.00</span></strong>
+            <button class="checkout-button" id="start-checkout" type="button" disabled>Checkout</button>
+        </div>
+    </aside>
+
+    <dialog class="checkout-dialog" id="checkout-dialog" aria-labelledby="checkout-title">
+        <form class="checkout-form" id="checkout-form">
+            <div class="cart-header">
+                <h2 id="checkout-title">Checkout</h2>
+                <button class="close-cart" id="close-checkout" type="button"
+                    aria-label="Close checkout">&times;</button>
+            </div>
+            <p class="checkout-note">Enter your delivery details to place your order and receive an email confirmation.
+            </p>
+            <div class="checkout-summary" id="checkout-summary"></div>
+            <label>Full name<input name="name" autocomplete="name" required maxlength="80"></label>
+            <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="120"></label>
+            <label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="30"></label>
+            <label>Payment method
+                <select name="payment_method" required>
+                    <option value="Bank transfer / EFT" selected>Bank transfer / EFT</option>
+                </select>
+            </label>
+            <label>Delivery address<textarea name="address" autocomplete="street-address" required maxlength="300"
+                    rows="3"></textarea></label>
+            <strong class="checkout-total">Order total <span id="checkout-total">R0.00</span></strong>
+            <aside class="payment-instructions" aria-labelledby="payment-instructions-title">
+                <h3 id="payment-instructions-title">EFT details</h3>
+                <p><strong>Account name:</strong> TS HUB SA</p>
+                <p><strong>Account number:</strong> 123456789</p>
+                <p><strong>Amount:</strong> <span id="payment-amount">R0.00</span></p>
+            </aside>
+            <button class="checkout-button" type="submit">Place Order</button>
+            <p class="checkout-note">Submitting this order does not take or verify payment. Never enter or send your
+                bank password, PIN, or one-time code on this website.</p>
+            <p class="checkout-note" id="email-status" role="status" aria-live="polite"></p>
+        </form>
+    </dialog>
+
+    <footer class="site-footer" id="about">
+        <div class="footer-brand">
+            <h2>TS HUB SA</h2>
+            <p>Local clothing. Local culture.</p>
+        </div>
+        <div class="footer-about">
+            <h3>About Us</h3>
+            <p><strong>Background story:</strong> The idea was created by Thabo Baloyi and Sipho Ntwana and established
+                in 2020 in Johannesburg to give underground brands a platform. TS HUB SA can represent more than 50
+                brands in one store.</p>
+            <p><strong>Mission statement:</strong> To provide a modern online marketplace where customers can discover,
+                shop, and support upcoming fashion brands through a secure, affordable, and user-friendly shopping
+                experience.</p>
+            <p><strong>Vision statement:</strong> To become South Africa's leading online marketplace for emerging
+                streetwear and fashion.</p>
+        </div>
+        <div class="footer-contact">
+            <h3>Contact</h3>
+            <a href="tel:+27798192988">079 819 2988</a>
+            <a href="mailto:hello.tshubsa@gmail.com">hello.tshubsa@gmail.com</a>
+        </div>
+        <div class="footer-socials">
+            <h3>Follow TS HUB SA</h3>
+            <div class="social-links" aria-label="TS HUB SA social media pages">
+                <a href="#instagram" aria-label="Instagram: TS HUB SA" title="Instagram: TS HUB SA">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <circle cx="17.5" cy="6.5" r="1"></circle>
+                    </svg>
+                </a>
+                <a href="#facebook" aria-label="Facebook: TS HUB SA" title="Facebook: TS HUB SA">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M14 21v-8h3l.5-3H14V8.2c0-.9.3-1.5 1.6-1.5H18V4a20 20 0 0 0-2.5-.2c-2.5 0-4.2 1.5-4.2 4.3V10H8v3h3.3v8">
+                        </path>
+                    </svg>
+                </a>
+                <a href="#tiktok" aria-label="TikTok: TS HUB SA" title="TikTok: TS HUB SA">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                            d="M15 4c.3 2 1.4 3.2 3.5 3.4v3a7 7 0 0 1-3.5-1v5.3a5.3 5.3 0 1 1-4.6-5.2v3a2.3 2.3 0 1 0 1.6 2.2V4H15z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <p class="footer-copyright">&copy; 2026 TS HUB SA. Supporting local brands.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@5/dist/email.min.js" defer></script>
+    <script src="email-config.js" defer></script>
+    <script src="store.js" defer></script>
+</body>
+
+</html>

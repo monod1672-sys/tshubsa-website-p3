@@ -1,0 +1,1132 @@
+public class Main {
+
+public static void main(String[] args) {
+
+HospitalSystem hospital = new HospitalSystem();
+
+hospital.start();
+}
+}
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
+
+// =====================================================
+// PATIENT CATEGORY ENUM
+// =====================================================
+
+enum PatientCategory {
+INPATIENT,
+OUTPATIENT,
+EMERGENCY
+}
+
+// =====================================================
+// PATIENT CLASS
+// =====================================================
+
+class Patient {
+
+private String patientId;
+private String firstName;
+private String lastName;
+private int age;
+private String gender;
+private String medicalCondition;
+private PatientCategory category;
+
+public Patient(String patientId,
+String firstName,
+String lastName,
+int age,
+String gender,
+String medicalCondition,
+PatientCategory category) {
+
+this.patientId = patientId;
+this.firstName = firstName;
+this.lastName = lastName;
+this.age = age;
+this.gender = gender;
+this.medicalCondition = medicalCondition;
+this.category = category;
+}
+
+public String getPatientId() {
+return patientId;
+}
+
+public String getFirstName() {
+return firstName;
+}
+
+public String getLastName() {
+return lastName;
+}
+
+public int getAge() {
+return age;
+}
+
+public String getGender() {
+return gender;
+}
+
+public String getMedicalCondition() {
+return medicalCondition;
+}
+
+public PatientCategory getCategory() {
+return category;
+}
+
+public void setFirstName(String firstName) {
+this.firstName = firstName;
+}
+
+public void setLastName(String lastName) {
+this.lastName = lastName;
+}
+
+public void setAge(int age) {
+this.age = age;
+}
+
+public void setGender(String gender) {
+this.gender = gender;
+}
+
+public void setMedicalCondition(String medicalCondition) {
+this.medicalCondition = medicalCondition;
+}
+
+public void setCategory(PatientCategory category) {
+this.category = category;
+}
+
+public void displayDetails() {
+
+System.out.println("--------------------------------");
+System.out.println("Patient ID: " + patientId);
+System.out.println("Name: " + firstName + " " + lastName);
+System.out.println("Age: " + age);
+System.out.println("Gender: " + gender);
+System.out.println("Medical Condition: " + medicalCondition);
+System.out.println("Category: " + category);
+System.out.println("--------------------------------");
+}
+}
+
+// =====================================================
+// INPATIENT CLASS
+// INHERITS FROM PATIENT
+// =====================================================
+
+class Inpatient extends Patient {
+
+private int wardNumber;
+private String bedNumber;
+
+public Inpatient(String patientId,
+String firstName,
+String lastName,
+int age,
+String gender,
+String medicalCondition,
+int wardNumber,
+String bedNumber) {
+
+super(
+patientId,
+firstName,
+lastName,
+age,
+gender,
+medicalCondition,
+PatientCategory.INPATIENT
+);
+
+this.wardNumber = wardNumber;
+this.bedNumber = bedNumber;
+}
+
+public int getWardNumber() {
+return wardNumber;
+}
+
+public String getBedNumber() {
+return bedNumber;
+}
+
+public void setWardNumber(int wardNumber) {
+this.wardNumber = wardNumber;
+}
+
+public void setBedNumber(String bedNumber) {
+this.bedNumber = bedNumber;
+}
+
+@Override
+public void displayDetails() {
+
+super.displayDetails();
+
+System.out.println("Ward Number: " + wardNumber);
+System.out.println("Bed Number: " + bedNumber);
+System.out.println("--------------------------------");
+}
+}
+
+// =====================================================
+// BED CLASS
+// =====================================================
+
+class Bed {
+
+private String bedNumber;
+private Patient patient;
+
+public Bed(String bedNumber) {
+
+this.bedNumber = bedNumber;
+this.patient = null;
+}
+
+public String getBedNumber() {
+return bedNumber;
+}
+
+public Patient getPatient() {
+return patient;
+}
+
+public boolean isOccupied() {
+
+return patient != null;
+}
+
+public void assignPatient(Patient patient) {
+
+this.patient = patient;
+}
+
+public void releaseBed() {
+
+this.patient = null;
+}
+
+public void displayBed() {
+
+if (isOccupied()) {
+
+System.out.println(
+bedNumber +
+" - OCCUPIED - " +
+patient.getFirstName() +
+" " +
+patient.getLastName()
+);
+
+} else {
+
+System.out.println(
+bedNumber +
+" - AVAILABLE"
+);
+}
+}
+}
+
+// =====================================================
+// HOSPITAL SYSTEM CLASS
+// =====================================================
+
+public class HospitalSystem {
+
+private static final int TOTAL_BEDS = 20;
+private static final int WARD_NUMBER = 1;
+
+private ArrayList<Patient> patients;
+private Bed[] beds;
+private Scanner scanner;
+
+// =================================================
+// CONSTRUCTOR
+// =================================================
+
+public HospitalSystem() {
+
+patients = new ArrayList<>();
+beds = new Bed[TOTAL_BEDS];
+scanner = new Scanner(System.in);
+
+for (int i = 0; i < TOTAL_BEDS; i++) {
+
+beds[i] = new Bed(
+"B" + String.format("%02d", i + 1)
+);
+}
+}
+
+// =================================================
+// START SYSTEM
+// =================================================
+
+public void start() {
+
+int choice;
+
+do {
+
+displayMenu();
+
+choice = getInt("Enter your choice: ");
+
+try {
+
+switch (choice) {
+
+case 1:
+registerPatient();
+break;
+
+case 2:
+searchPatient();
+break;
+
+case 3:
+updatePatient();
+break;
+
+case 4:
+deletePatient();
+break;
+
+case 5:
+allocateBed();
+break;
+
+case 6:
+releaseBed();
+break;
+
+case 7:
+displayWardLayout();
+break;
+
+case 8:
+displayReports();
+break;
+
+case 9:
+sortPatients();
+break;
+
+case 10:
+System.out.println(
+"\nThank you for using the Hospital System."
+);
+break;
+
+default:
+System.out.println(
+"Invalid choice. Please select 1-10."
+);
+}
+
+} catch (Exception e) {
+
+System.out.println(
+"Error: " + e.getMessage()
+);
+}
+
+} while (choice != 10);
+}
+
+// =================================================
+// MENU
+// =================================================
+
+private void displayMenu() {
+
+System.out.println();
+System.out.println("======================================");
+System.out.println(" HOSPITAL PATIENT SYSTEM");
+System.out.println("======================================");
+System.out.println("1. Register a patient");
+System.out.println("2. Search for a patient");
+System.out.println("3. Update patient details");
+System.out.println("4. Delete a patient");
+System.out.println("5. Allocate a bed");
+System.out.println("6. Release a bed");
+System.out.println("7. Display ward layout");
+System.out.println("8. Display reports");
+System.out.println("9. Sort patients");
+System.out.println("10. Exit");
+System.out.println("======================================");
+}
+
+// =================================================
+// REGISTER PATIENT
+// =================================================
+
+private void registerPatient() {
+
+System.out.println();
+System.out.println("--- REGISTER PATIENT ---");
+
+String id = getString("Patient ID: ");
+
+if (findPatient(id) != null) {
+
+System.out.println(
+"Error: Patient ID already exists."
+);
+
+return;
+}
+
+String firstName =
+getString("First Name: ");
+
+String lastName =
+getString("Last Name: ");
+
+int age =
+getInt("Age: ");
+
+String gender =
+getString("Gender: ");
+
+String condition =
+getString("Medical Condition: ");
+
+System.out.println();
+System.out.println("Patient Category:");
+System.out.println("1. Inpatient");
+System.out.println("2. Outpatient");
+System.out.println("3. Emergency");
+
+int categoryChoice =
+getInt("Select category: ");
+
+PatientCategory category;
+
+switch (categoryChoice) {
+
+case 1:
+category = PatientCategory.INPATIENT;
+break;
+
+case 2:
+category = PatientCategory.OUTPATIENT;
+break;
+
+case 3:
+category = PatientCategory.EMERGENCY;
+break;
+
+default:
+
+System.out.println(
+"Invalid category."
+);
+
+return;
+}
+
+Patient patient;
+
+if (category == PatientCategory.INPATIENT) {
+
+patient = new Inpatient(
+id,
+firstName,
+lastName,
+age,
+gender,
+condition,
+WARD_NUMBER,
+"Not Allocated"
+);
+
+} else {
+
+patient = new Patient(
+id,
+firstName,
+lastName,
+age,
+gender,
+condition,
+category
+);
+}
+
+patients.add(patient);
+
+System.out.println(
+"Patient registered successfully."
+);
+}
+
+// =================================================
+// SEARCH PATIENT
+// =================================================
+
+private void searchPatient() {
+
+System.out.println();
+System.out.println("--- SEARCH PATIENT ---");
+
+String id =
+getString("Enter Patient ID: ");
+
+Patient patient =
+findPatient(id);
+
+if (patient == null) {
+
+System.out.println(
+"Patient not found."
+);
+
+} else {
+
+patient.displayDetails();
+}
+}
+
+// =================================================
+// UPDATE PATIENT
+// =================================================
+
+private void updatePatient() {
+
+System.out.println();
+System.out.println("--- UPDATE PATIENT ---");
+
+String id =
+getString("Enter Patient ID: ");
+
+Patient patient =
+findPatient(id);
+
+if (patient == null) {
+
+System.out.println(
+"Patient not found."
+);
+
+return;
+}
+
+patient.setFirstName(
+getString("First Name: ")
+);
+
+patient.setLastName(
+getString("Last Name: ")
+);
+
+patient.setAge(
+getInt("Age: ")
+);
+
+patient.setGender(
+getString("Gender: ")
+);
+
+patient.setMedicalCondition(
+getString("Medical Condition: ")
+);
+
+System.out.println(
+"Patient details updated successfully."
+);
+}
+
+// =================================================
+// DELETE PATIENT
+// =================================================
+
+private void deletePatient() {
+
+System.out.println();
+System.out.println("--- DELETE PATIENT ---");
+
+String id =
+getString("Enter Patient ID: ");
+
+Patient patient =
+findPatient(id);
+
+if (patient == null) {
+
+System.out.println(
+"Patient not found."
+);
+
+return;
+}
+
+Bed bed =
+findPatientBed(patient);
+
+if (bed != null) {
+
+bed.releaseBed();
+}
+
+patients.remove(patient);
+
+System.out.println(
+"Patient deleted successfully."
+);
+}
+
+// =================================================
+// ALLOCATE BED
+// =================================================
+
+private void allocateBed() {
+
+System.out.println();
+System.out.println("--- ALLOCATE BED ---");
+
+String id =
+getString("Enter Patient ID: ");
+
+Patient patient =
+findPatient(id);
+
+if (patient == null) {
+
+System.out.println(
+"Patient not found."
+);
+
+return;
+}
+
+if (patient.getCategory()
+!= PatientCategory.INPATIENT) {
+
+System.out.println(
+"Only inpatient patients can be allocated a bed."
+);
+
+return;
+}
+
+if (findPatientBed(patient) != null) {
+
+System.out.println(
+"This patient already has a bed."
+);
+
+return;
+}
+
+Bed availableBed =
+findAvailableBed();
+
+if (availableBed == null) {
+
+System.out.println(
+"No beds are currently available."
+);
+
+return;
+}
+
+availableBed.assignPatient(patient);
+
+if (patient instanceof Inpatient) {
+
+Inpatient inpatient =
+(Inpatient) patient;
+
+inpatient.setBedNumber(
+availableBed.getBedNumber()
+);
+}
+
+System.out.println(
+"Bed " +
+availableBed.getBedNumber() +
+" allocated successfully."
+);
+}
+
+// =================================================
+// RELEASE BED
+// =================================================
+
+private void releaseBed() {
+
+System.out.println();
+System.out.println("--- RELEASE BED ---");
+
+String id =
+getString("Enter Patient ID: ");
+
+Patient patient =
+findPatient(id);
+
+if (patient == null) {
+
+System.out.println(
+"Patient not found."
+);
+
+return;
+}
+
+Bed bed =
+findPatientBed(patient);
+
+if (bed == null) {
+
+System.out.println(
+"This patient does not have a bed."
+);
+
+return;
+}
+
+bed.releaseBed();
+
+if (patient instanceof Inpatient) {
+
+Inpatient inpatient =
+(Inpatient) patient;
+
+inpatient.setBedNumber(
+"Not Allocated"
+);
+}
+
+System.out.println(
+"Bed released successfully."
+);
+}
+
+// =================================================
+// WARD LAYOUT
+// =================================================
+
+private void displayWardLayout() {
+
+System.out.println();
+System.out.println(
+"========== WARD LAYOUT =========="
+);
+
+for (int i = 0; i < beds.length; i++) {
+
+beds[i].displayBed();
+
+if ((i + 1) % 5 == 0) {
+
+System.out.println();
+}
+}
+}
+
+// =================================================
+// REPORTS
+// =================================================
+
+private void displayReports() {
+
+System.out.println();
+System.out.println(
+"========== HOSPITAL REPORTS =========="
+);
+
+System.out.println();
+System.out.println(
+"--- REGISTERED PATIENTS ---"
+);
+
+if (patients.isEmpty()) {
+
+System.out.println(
+"No registered patients."
+);
+
+} else {
+
+for (Patient patient : patients) {
+
+patient.displayDetails();
+}
+}
+
+System.out.println(
+"Total registered patients: " +
+patients.size()
+);
+
+int available = 0;
+int occupied = 0;
+
+for (Bed bed : beds) {
+
+if (bed.isOccupied()) {
+
+occupied++;
+
+} else {
+
+available++;
+}
+}
+
+System.out.println();
+System.out.println(
+"--- BED INFORMATION ---"
+);
+
+System.out.println(
+"Total beds: " + TOTAL_BEDS
+);
+
+System.out.println(
+"Occupied beds: " + occupied
+);
+
+System.out.println(
+"Available beds: " + available
+);
+
+double occupancy =
+((double) occupied / TOTAL_BEDS) * 100;
+
+System.out.printf(
+"Ward occupancy: %.2f%%%n",
+occupancy
+);
+}
+
+// =================================================
+// SORT PATIENTS
+// =================================================
+
+private void sortPatients() {
+
+System.out.println();
+System.out.println(
+"--- SORT PATIENTS ---"
+);
+
+System.out.println(
+"1. Sort by surname"
+);
+
+System.out.println(
+"2. Sort by Patient ID"
+);
+
+int choice =
+getInt("Choose sorting method: ");
+
+if (choice == 1) {
+
+patients.sort(
+Comparator.comparing(
+Patient::getLastName,
+String.CASE_INSENSITIVE_ORDER
+)
+);
+
+System.out.println(
+"Patients sorted by surname."
+);
+
+} else if (choice == 2) {
+
+patients.sort(
+Comparator.comparing(
+Patient::getPatientId
+)
+);
+
+System.out.println(
+"Patients sorted by Patient ID."
+);
+
+} else {
+
+System.out.println(
+"Invalid sorting option."
+);
+
+return;
+}
+
+System.out.println();
+
+for (Patient patient : patients) {
+
+System.out.println(
+patient.getPatientId() +
+" - " +
+patient.getFirstName() +
+" " +
+patient.getLastName()
+);
+}
+}
+
+// =================================================
+// FIND PATIENT
+// =================================================
+
+private Patient findPatient(String id) {
+
+for (Patient patient : patients) {
+
+if (patient.getPatientId()
+.equalsIgnoreCase(id)) {
+
+return patient;
+}
+}
+
+return null;
+}
+
+// =================================================
+// FIND AVAILABLE BED
+// =================================================
+
+private Bed findAvailableBed() {
+
+for (Bed bed : beds) {
+
+if (!bed.isOccupied()) {
+
+return bed;
+}
+}
+
+return null;
+}
+
+// =================================================
+// FIND PATIENT BED
+// =================================================
+
+private Bed findPatientBed(Patient patient) {
+
+for (Bed bed : beds) {
+
+if (bed.isOccupied()
+&& bed.getPatient()
+.getPatientId()
+.equalsIgnoreCase(
+patient.getPatientId()
+)) {
+
+return bed;
+}
+}
+
+return null;
+}
+
+// =================================================
+// GET STRING
+// =================================================
+
+private String getString(String message) {
+
+System.out.print(message);
+
+return scanner.nextLine().trim();
+}
+
+// =================================================
+// GET INTEGER
+// =================================================
+
+private int getInt(String message) {
+
+while (true) {
+
+try {
+
+System.out.print(message);
+
+return Integer.parseInt(
+scanner.nextLine()
+);
+
+} catch (NumberFormatException e) {
+
+System.out.println(
+"Please enter a valid number."
+);
+}
+}
+}
+}
+
+package hospitalpatientsystem;
+
+public class HospitalSystemTest {
+
+public static void main(String[] args) {
+
+System.out.println("========== TESTING HOSPITAL SYSTEM ==========");
+
+testPatientCreation();
+testBedAllocation();
+testBedRelease();
+testInpatient();
+
+System.out.println();
+System.out.println("========== ALL TESTS COMPLETED ==========");
+}
+
+// ========================================================
+// TEST 1: PATIENT CREATION
+// ========================================================
+
+public static void testPatientCreation() {
+
+Patient patient = new Patient(
+"P001",
+"John",
+"Smith",
+25,
+"Male",
+"Flu",
+PatientCategory.OUTPATIENT
+);
+
+if (patient.getPatientId().equals("P001")
+&& patient.getFirstName().equals("John")
+&& patient.getLastName().equals("Smith")) {
+
+System.out.println(
+"TEST 1: Patient creation - PASSED"
+);
+
+} else {
+
+System.out.println(
+"TEST 1: Patient creation - FAILED"
+);
+}
+}
+
+// ========================================================
+// TEST 2: BED ALLOCATION
+// ========================================================
+
+public static void testBedAllocation() {
+
+Bed bed = new Bed("B01");
+
+Patient patient = new Patient(
+"P002",
+"Mary",
+"Jones",
+30,
+"Female",
+"Flu",
+PatientCategory.INPATIENT
+);
+
+bed.assignPatient(patient);
+
+if (bed.isOccupied()
+&& bed.getPatient() == patient) {
+
+System.out.println(
+"TEST 2: Bed allocation - PASSED"
+);
+
+} else {
+
+System.out.println(
+"TEST 2: Bed allocation - FAILED"
+);
+}
+}
+
+// ========================================================
+// TEST 3: BED RELEASE
+// ========================================================
+
+public static void testBedRelease() {
+
+Bed bed = new Bed("B02");
+
+Patient patient = new Patient(
+"P003",
+"Peter",
+"Brown",
+35,
+"Male",
+"Infection",
+PatientCategory.INPATIENT
+);
+
+bed.assignPatient(patient);
+bed.releaseBed();
+
+if (!bed.isOccupied()
+&& bed.getPatient() == null) {
+
+System.out.println(
+"TEST 3: Bed release - PASSED"
+);
+
+} else {
+
+System.out.println(
+"TEST 3: Bed release - FAILED"
+);
+}
+}
+
+// ========================================================
+// TEST 4: INPATIENT INHERITANCE
+// ========================================================
+
+public static void testInpatient() {
+
+Inpatient inpatient = new Inpatient(
+"P004",
+"Sarah",
+"White",
+28,
+"Female",
+"Broken leg",
+1,
+"B03"
+);
+
+if (inpatient instanceof Patient
+&& inpatient.getCategory()
+== PatientCategory.INPATIENT
+&& inpatient.getBedNumber().equals("B03")) {
+
+System.out.println(
+"TEST 4: Inpatient inheritance - PASSED"
+);
+
+} else {
+
+System.out.println(
+"TEST 4: Inpatient inheritance - FAILED"
+);
+}
+}
+}
